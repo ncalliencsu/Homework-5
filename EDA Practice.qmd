@@ -1,0 +1,356 @@
+---
+title: "EDA Practice"
+format: html
+editor: visual
+---
+
+# Summarizing Student Data
+
+## Task 1: Read in the Data and Modify
+
+1. Modify the code provided with the download to read in the data from a local file source (your downloaded .csv files) and combine the two data frames. Use local paths as they do in their code.\
+
+```{r}
+
+d1=read.table("student-mat.csv",sep=";",header=TRUE)
+d2=read.table("student-por.csv",sep=";",header=TRUE)
+
+d3=merge(d1,d2,by=c("school","sex","age","address","famsize","Pstatus","Medu","Fedu","Mjob","Fjob","reason","nursery","internet"))
+print(nrow(d3)) # 382 students
+
+```
+
+2. read in and combine the data using functions from the tidyverse. Use an inner_join() on the variables they used in their code. Do you notice any issues? Make a note of the issue.
+
+```{r}
+
+library(tidyverse)
+math = read_delim("student-mat.csv", delim = ";",col_names = TRUE)
+por = read_delim("student-por.csv", delim = ";",col_names = TRUE)
+
+d3 = inner_join(math, por, by=c("school","sex","age","address","famsize","Pstatus","Medu","Fedu","Mjob","Fjob","reason","nursery","internet"))
+
+```
+
+This warning means that, for the columns we specified in the inner join, values in Row 79 of the math data appear more than once in the por frame, and vice versa (values in Row 79 of the por data appear more than once in the math data. As a result, the inner join creates all possible combinations for those matches.
+
+3. Use an inner_join() on all variables other than G1, G2, G3, paid, and absences. Use this form of the combined data in further exercises.
+
+```{r}
+
+combined <- inner_join(math, por, by = c("school", "sex", "age", "address", "famsize", "Pstatus", "Medu", "Fedu", "Mjob", "Fjob", "reason", "guardian", "traveltime", "studytime", "failures", "schoolsup", "famsup", "activities", "nursery", "higher", "internet", "romantic", "famrel", "freetime", "goout", "Dalc", "Walc", "health"))
+
+```
+
+This code performs an inner join between the math and por data frames using a comprehensive set of columns as keys. This will keep only the rows where all these columns match in both data frames. If there are columns in math and por with the same name that are not included in the by argument, the resulting combined data frame will have those columns with .x and .y suffixes to distinguish them (absences, paid, G1, G2 and G3).
+
+
+Next, for the math data, Portuguese, and combined data, choose four categorical variables you are interested in and convert those into factor variables in each tibble (use the same four variables in each). Use the mutate() function to accomplish this.  
+
+I chose guardian, reason, Mjob and Fjob
+```{r}
+
+math |> mutate(guardian = as_factor(guardian), reason = as_factor(reason), Mjob = as_factor(Mjob), Fjob = as_factor(Fjob))
+
+por |> mutate(guardian = as_factor(guardian), reason = as_factor(reason), Mjob = as_factor(Mjob), Fjob = as_factor(Fjob))
+
+combined <- combined |> mutate(guardian = as_factor(guardian), reason = as_factor(reason), Mjob = as_factor(Mjob), Fjob = as_factor(Fjob))
+
+
+```
+
+## Task 2: Summarize the Data (Very Basic EDA)  
+We’ve talked about the general process of conducting an EDA. You try to understand how your data is
+stored, what is missing, and you try to summarize the variables both numerically and visually to understand relationships within the data. Do the rest of these items on the combined data:  
+
+Look at how the data is stored and see if everything makes sense.
+```{r}
+str(combined)
+
+```
+
+Looking at the output of the str() command.  In addition to the changing of the four variables above into factors, the following changes would make sense.  Many of them should be factors, and some should be converted to integer. 
+
+
+* $ age       : int [1:320] 18 17 15 16 16 16 17 15 15 15 ...
+* $ Medu      : fct [1:320] 4 1 4 3 4 2 4 3 3 4 ...
+* $ Fedu      : fct [1:320] 4 1 2 3 3 2 4 2 4 4 ...
+* $ traveltime: fct [1:320] 2 1 1 1 1 1 2 1 1 1 ...
+* $ studytime : fct [1:320] 2 2 3 2 2 2 2 2 2 2 ...
+* $ failures  : int [1:320] 0 0 0 0 0 0 0 0 0 0 ...
+* $ famrel    : fct [1:320] 4 5 3 4 5 4 4 4 5 3 ...
+* $ freetime  : fct [1:320] 3 3 2 3 4 4 1 2 5 3 ...
+* $ goout     : fct [1:320] 4 3 2 2 2 4 4 2 1 3 ...
+* $ Dalc      : fct [1:320] 1 1 1 1 1 1 1 1 1 1 ...
+* $ Walc      : fct [1:320] 1 1 1 2 2 1 1 1 1 2 ...
+* $ health    : fct [1:320] 3 3 5 5 5 3 1 1 5 2 ...
+* $ absences.x: int [1:320] 6 4 2 4 10 0 6 0 0 0 ...
+* $ absences.y: int [1:320] 4 2 0 0 6 0 2 0 0 2 ...
+* $ G1.x      : int [1:320] 5 5 15 6 15 12 6 16 14 10 ...
+* $ G2.x      : int [1:320] 6 5 14 10 15 12 5 18 15 8 ...
+* $ G3.x      : int [1:320] 6 6 15 10 15 11 6 19 15 9 ... 
+* $ G1.y      : int [1:320] 0 9 14 11 12 13 10 15 12 14 ...
+* $ G2.y      : int [1:320] 11 11 14 13 12 12 13 16 12 14 ...
+* $ G3.y      : int [1:320] 11 11 14 13 13 13 13 17 13 14 ...
+
+I also see that paid, absences, G1, G2 and G3 have .x and .y components from the inner join. 
+
+Document the missing values in the data.  
+```{r}
+colSums(is.na(combined))
+```
+From this output, there does not seem to be any missing data.  
+
+### Categorical variables  
+Create a one-way contingency table, a two-way contingency table, and a three-way contingency table
+for some of the factor variables you created previously. Use table() to accomplish this.
+– Interpret a number from each resulting table (that is, pick out a value produced and explain what
+that value means.)
+```{r}
+
+#1-way Contingency Table
+cat("1-way Contingency Table", "\n")
+table(combined$guardian)
+cat("\n")
+
+#2-way Contingency Table
+cat("2-way Contingency Table", "\n")
+table(combined$guardian, combined$reason)
+cat("\n")
+
+#3-way Contingency Table
+cat("3-way Contingency Table", "\n")
+table(combined$guardian, combined$reason, combined$Fjob)
+cat("\n")
+
+```
+Interpretation of 1-way Contingency Table - there are 237 mothers that are guardians in the sample.  
+
+Interpretation of 2-way Contingency Table - 22 fathers chose the school because it was close to home.  
+
+Interpretation of 3-way Contingency Table - 8 mothers who are teachers chose the school because it was close to home.  
+
+Create a conditional two-way table using table(). That is, condition on one variable’s setting and
+create a two-way table. Do this using two different methods:
+– Once, by subsetting the data (say with filter()) and then creating the two-way table
+– Once, by creating a three-way table and subsetting it
+```{r}
+
+#Conditional Two-way Contingency Tables 
+#Using Filter
+cat("2-way Conditional Contingency Table", "\n", "Filter for Mother", "\n")
+filt <- combined |> filter(guardian == "mother") 
+table(filt$Fjob, filt$reason) 
+cat("\n")
+
+#Subsetting a 3-way Contingency Table
+cat("2-way Conditional Contingency Table", "\n", "Subset 3-Way Table", "\n")
+ss <- table(combined$guardian, combined$Fjob, combined$reason)
+ss["mother", ,]
+cat("\n")
+
+
+```
+Create a two-way contingency table using group_by() and summarize() from dplyr. Then use
+pivot_wider() to make the result look more like the output from table().  
+```{r}
+
+combined |>
+  group_by(guardian, reason) |>
+  summarize(count = n())
+
+```
+```{r}
+combined |>
+  group_by(guardian, reason) |>
+  summarize(count = n()) |>
+  pivot_wider(names_from = reason, values_from = count)
+```
+Create a stacked bar graph and a side-by-side bar graph. Give relevant x and y labels, and a title for the plots.  
+```{r}
+#Stacked Bar Graph
+
+g <- ggplot(data = combined , aes(x = guardian, fill = reason))
+g + geom_bar() + labs(title = "School Choice Reason by Guardian", x = "Guardian Category", y = "Reason for School Selection")
+
+#Horizontal Bar Graph
+g <- ggplot(data = combined , aes(x = guardian, fill = reason))
+g + geom_bar() + labs(title = "School Choice Reason by Guardian", x = "Guardian Category", y = "Reason for School Selection") +
+coord_flip()
+
+```
+### Numeric variables (and across groups)
+The numeric variables are age, absences, and the three test grades variables (G1, G2, and G3) from each data set (math and Portuguese).  
+
+• Find measures of center and spread for three of these variables (including at least one G3 variable)  
+– Repeat while subsetting the data in a meaningful way.
+```{r}
+library(dplyr)
+
+combined |>
+  summarize(mean_age = mean(age), sd_age = sd(age))
+
+combined |>
+  summarize(mean_abs.x = mean(absences.x), sd_abs = sd(absences.x))
+
+combined |>
+  summarize(mean_G3.x = mean(G3.x), sd_G3 = sd(G3.x))
+
+#Subsetted in a meaningful way (address = Urban)
+combined |> filter(address == "U") |>
+  summarize(mean_age = mean(age), sd_age = sd(age))
+
+combined |> filter(address == "U") |>
+  summarize(mean_absx.x = mean(absences.x), sd_abs = sd(absences.x))
+
+combined |> filter(address == "U") |>
+  summarize(mean_G3.x = mean(G3.x), sd_G3 = sd(G3.x))
+
+```
+
+Find measures of center and spread across a single grouping variable for three of these variables (including a G3 variable as one of them)
+```{r}
+combined |>
+  group_by(address) |>
+  summarize(mean_age = mean(age), sd_age = sd(age), mean_absx.x = mean(absences.x), sd_abs = sd(absences.x), mean_G3.x = mean(G3.x), sd_G3 = sd(G3.x))  
+```
+Find measures of center and spread across two grouping variables for three of these variables (including a G3 variable as one of them)
+```{r}
+
+combined |>
+  group_by(address, Fjob) |>
+  summarize(mean_age = mean(age), sd_age = sd(age), mean_absx.x = mean(absences.x), sd_abs = sd(absences.x), mean_G3.x = mean(G3.x), sd_G3 = sd(G3.x))
+
+```
+Create a correlation matrix between all of the numeric variables
+```{r}
+
+corr <- combined |> select(where(is.numeric)) |> cor()
+corr
+                               
+```
+Create a histogram, kernel density plot, and boxplot for two of the numeric variables across one of the categorical variables (that is, create graphs that can compare the distributions across the groups on the same plot (no faceting here)). Add appropriate labels and titles.  
+
+```{r Histograms for two (2) numeric variables across one (1) categorical variable}
+
+ggplot(combined, aes(x = absences.x , fill = address)) +
+  geom_histogram(color='black') + labs(title = "Distribution of Absences in Math Class by Address", x = "Math Class Absences", y = "Number of Absences")
+
+```
+In this plot we can see that math class absences appears to have an Exponential Distribution and that the majority of students come from an Urban address.
+
+
+```{r}
+ggplot(combined, aes(x = G3.x , fill = address)) +
+  geom_histogram(color='black') + labs(title = "Distribution of Final Math Grade by Address", x = "Final Math Grade", y = "Number of Students")
+```
+In this plot we can see that the distribution of final grade in math is approximately normal.  The zeros at the left end does seem high and probably should be investigated to see if this is a data error.
+
+```{r Kernel Density Plot for two (2) numeric variables across one (1) categorical variable}
+
+ggplot(combined, aes(x = absences.x , fill = address)) +
+  geom_density(kernel = "gaussian") + labs(title = "Kernel Density of Absences in Math Class by Address", x = "Math Class Absences", y = "Density")
+
+```
+Here, the distribution of math class absences for rural students is similar to the distribution for urban students.  The density at the end with rural absences greater than 70 compared to the high of 55 for urban might be interesting to investigate.
+
+```{r}
+
+ggplot(combined, aes(x = G3.x , fill = address)) +
+  geom_density(kernel = "gaussian") + labs(title = "Kernel Density of Final Math Grade by Address", x = "Final Math Grade", y = "Density")
+
+```
+In this plot, it appears that the distribution of final grade in math vs. address differs between rural and urban addresses.  
+
+```{r Boxplots for two (2) numeric variables across one (1) categorical variable}
+
+ggplot(combined, aes(x = address, y = absences.x , fill = address)) +
+  geom_boxplot() + labs(title = "Boxplot of Absences in Math Class by Address", x = "Address", y = "Math Class Absences")
+
+```
+The plot suggests that the median of math class absences is similar across rural and urban addresses. The range of the rural absences tops out at 75 compared to 55 for the urban addresses.  The orange box with the median toward the bottom left suggests right skew for rural addresses.  The blue box with the median toward the top suggest left skew for urban addresses. 
+
+
+```{r}
+
+ggplot(combined, aes(x = address, y = G3.x , fill = address)) +
+  geom_boxplot() + labs(title = "Boxplot of Math Final Grade by Address", x = "Address", y = "Final Math Grade")
+
+```
+This plot suggests that final math scores for Urban and Rural addresses are similar. Here, the distribution of Rural scores appears symmetric.  The distribution of urban scores is slightly left skewed.  Note that the range of Urban students is wider. This seems counterintuitive.  Smaller sample sizes usually leads to wider variation.
+
+Create two scatterplots relating a G3 variable to other numeric variables (put G3 on the y-axis). You
+should jitter the points if they sit on top of each other. Color the points by a categorical variable in each. Add appropriate labels and titles.
+```{r}
+# Check for overlapping points
+# sum(duplicated(combined[, c("age", "G3.x")]))
+# sum(duplicated(combined[, c("absences.x", "G3.x")]))
+
+ggplot(combined, aes(x = age, y = G3.y, color = address)) + 
+  geom_point() + geom_jitter(width = 0.5, alpha = 0.3) + 
+  labs(title = "Scatterplot of Final Language Grade by Age and Address", x = "Student Age", y = "Final Language Grade")
+
+```
+This plot suggest that final language scores are similar across age, except for the 22 year old points, which may truly be outliers. Address does not seem to have an effect on final language scores.
+
+```{r}
+
+ggplot(combined, aes(x = absences.y, y = G3.y, color = address)) +
+  geom_point() + geom_jitter(width = 0.5, alpha = 0.3) + 
+  labs(title = "Scatterplot of Final Language Grade by Absences and Address", x = "Language Class Absences", y = "Final Language Grade")
+
+```
+This plot suggest that final language scores slightly drop with absences.  But there are a few students that had over 30 absences and still are close to the middle of the cloud of points. I find that interesting.
+
+Repeat the scatter plot step but use faceting to obtain graphs at each setting of another categorical
+variable.
+```{r}
+
+new_famrel_labels <- c("1" = "very bad", "2" = "bad", "3" = "OK", "4" = "good", "5" = "excellent" )
+
+ggplot(combined, aes(x = age, y = G3.y, color = address)) + 
+  geom_point() + geom_jitter(width = 0.5, alpha = 0.3) + 
+  labs(title = "Scatterplot of Final Language Grade by Age, Family Relationship and Address", x = "Student Age", y = "Final Language Grade") + 
+  facet_wrap(~ famrel, labeller = labeller(famrel = new_famrel_labels))
+
+```
+This plot suggests that family relationship, age, and address do not seem to have an effect on final language grade.  There are some points out of the cloud but the bulk of the mass of points supports my conclusion.
+
+```{r}
+
+new_famrel_labels <- c("1" = "very bad", "2" = "bad", "3" = "OK", "4" = "good", "5" = "excellent" )
+
+ggplot(combined, aes(x = absences.y, y = G3.y, color = address)) + 
+  geom_point() + geom_jitter(width = 0.5, alpha = 0.3) + 
+  labs(title = str_wrap("Scatterplot of Final Language Grade by Absences, Family Relationship and Address", width = 50), x = "Student Age", y = "Final Language Grade") + 
+  facet_wrap(~ famrel, labeller = labeller(famrel = new_famrel_labels))
+
+```
+This plot suggests that family relationship, absences, and address do not seem to have an effect on final language grade.  There are some points out of the cloud but the bulk of the mass of points supports my conclusion.
+
+
+Repeat the scatter plot step but use faceting to obtain graphs at each combination of two categorical
+variables.
+```{r}
+
+new_famrel_labels <- c("1" = "very bad", "2" = "bad", "3" = "OK", "4" = "good", "5" = "excellent" )
+
+ggplot(combined, aes(x = age, y = G3.y, color = address)) + 
+  geom_point() + geom_jitter(width = 0.5, alpha = 0.3) + 
+  labs(title = str_wrap("Scatterplot of Final Language Grade by Age, Family Relationship, Guardian and Address", width = 50), x = "Student Age", y = "Final Language Grade") + 
+  facet_grid(guardian ~ famrel, labeller = labeller(famrel = new_famrel_labels))
+
+```
+In this plot, it appears that the selected factors do not have an effect on final language grade.  The other guardian students appear to have somewhat lower scores, but the sample size is small so it is difficult to draw any confident conclusions from this.
+
+```{r}
+
+new_famrel_labels <- c("1" = "very bad", "2" = "bad", "3" = "OK", "4" = "good", "5" = "excellent" )
+
+ggplot(combined, aes(x = absences.y, y = G3.y, color = address)) + 
+  geom_point() + geom_jitter(width = 0.5, alpha = 0.3) + 
+  labs(title = str_wrap("Scatterplot of Final Language Grade by Absence, Family Relationship, Guardian and Address", width = 50), x = "Language Class Absences", y = "Final Language Grade" ) + 
+  facet_grid(guardian ~ famrel, labeller = labeller(famrel = new_famrel_labels))
+
+```
+This plot suggests that language class absences may have a slight effect on final language grade (more absences translates to lower grades). In the boxes that have at least 5 points, the points seem to fall off a bit to the left.

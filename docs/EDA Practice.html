@@ -1,0 +1,1323 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.32">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>EDA Practice</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-991b1886d3c685c7aa2b62b80640c7af.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="fullcontent quarto-light">
+
+<div id="quarto-search-results"></div>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">EDA Practice</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="summarizing-student-data" class="level1">
+<h1>Summarizing Student Data</h1>
+<section id="task-1-read-in-the-data-and-modify" class="level2">
+<h2 class="anchored" data-anchor-id="task-1-read-in-the-data-and-modify">Task 1: Read in the Data and Modify</h2>
+<ol type="1">
+<li>Modify the code provided with the download to read in the data from a local file source (your downloaded .csv files) and combine the two data frames. Use local paths as they do in their code.<br>
+</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>d1<span class="ot">=</span><span class="fu">read.table</span>(<span class="st">"student-mat.csv"</span>,<span class="at">sep=</span><span class="st">";"</span>,<span class="at">header=</span><span class="cn">TRUE</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>d2<span class="ot">=</span><span class="fu">read.table</span>(<span class="st">"student-por.csv"</span>,<span class="at">sep=</span><span class="st">";"</span>,<span class="at">header=</span><span class="cn">TRUE</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>d3<span class="ot">=</span><span class="fu">merge</span>(d1,d2,<span class="at">by=</span><span class="fu">c</span>(<span class="st">"school"</span>,<span class="st">"sex"</span>,<span class="st">"age"</span>,<span class="st">"address"</span>,<span class="st">"famsize"</span>,<span class="st">"Pstatus"</span>,<span class="st">"Medu"</span>,<span class="st">"Fedu"</span>,<span class="st">"Mjob"</span>,<span class="st">"Fjob"</span>,<span class="st">"reason"</span>,<span class="st">"nursery"</span>,<span class="st">"internet"</span>))</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">nrow</span>(d3)) <span class="co"># 382 students</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 382</code></pre>
+</div>
+</div>
+<ol start="2" type="1">
+<li>read in and combine the data using functions from the tidyverse. Use an inner_join() on the variables they used in their code. Do you notice any issues? Make a note of the issue.</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.4     ✔ readr     2.1.5
+✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ ggplot2   4.0.0     ✔ tibble    3.2.1
+✔ lubridate 1.9.4     ✔ tidyr     1.3.1
+✔ purrr     1.0.4     
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>math <span class="ot">=</span> <span class="fu">read_delim</span>(<span class="st">"student-mat.csv"</span>, <span class="at">delim =</span> <span class="st">";"</span>,<span class="at">col_names =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 395 Columns: 33
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ";"
+chr (17): school, sex, address, famsize, Pstatus, Mjob, Fjob, reason, guardi...
+dbl (16): age, Medu, Fedu, traveltime, studytime, failures, famrel, freetime...
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>por <span class="ot">=</span> <span class="fu">read_delim</span>(<span class="st">"student-por.csv"</span>, <span class="at">delim =</span> <span class="st">";"</span>,<span class="at">col_names =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 649 Columns: 33
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ";"
+chr (17): school, sex, address, famsize, Pstatus, Mjob, Fjob, reason, guardi...
+dbl (16): age, Medu, Fedu, traveltime, studytime, failures, famrel, freetime...
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>d3 <span class="ot">=</span> <span class="fu">inner_join</span>(math, por, <span class="at">by=</span><span class="fu">c</span>(<span class="st">"school"</span>,<span class="st">"sex"</span>,<span class="st">"age"</span>,<span class="st">"address"</span>,<span class="st">"famsize"</span>,<span class="st">"Pstatus"</span>,<span class="st">"Medu"</span>,<span class="st">"Fedu"</span>,<span class="st">"Mjob"</span>,<span class="st">"Fjob"</span>,<span class="st">"reason"</span>,<span class="st">"nursery"</span>,<span class="st">"internet"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in inner_join(math, por, by = c("school", "sex", "age", "address", : Detected an unexpected many-to-many relationship between `x` and `y`.
+ℹ Row 79 of `x` matches multiple rows in `y`.
+ℹ Row 79 of `y` matches multiple rows in `x`.
+ℹ If a many-to-many relationship is expected, set `relationship =
+  "many-to-many"` to silence this warning.</code></pre>
+</div>
+</div>
+<p>This warning means that, for the columns we specified in the inner join, values in Row 79 of the math data appear more than once in the por frame, and vice versa (values in Row 79 of the por data appear more than once in the math data. As a result, the inner join creates all possible combinations for those matches.</p>
+<ol start="3" type="1">
+<li>Use an inner_join() on all variables other than G1, G2, G3, paid, and absences. Use this form of the combined data in further exercises.</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>combined <span class="ot">&lt;-</span> <span class="fu">inner_join</span>(math, por, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"school"</span>, <span class="st">"sex"</span>, <span class="st">"age"</span>, <span class="st">"address"</span>, <span class="st">"famsize"</span>, <span class="st">"Pstatus"</span>, <span class="st">"Medu"</span>, <span class="st">"Fedu"</span>, <span class="st">"Mjob"</span>, <span class="st">"Fjob"</span>, <span class="st">"reason"</span>, <span class="st">"guardian"</span>, <span class="st">"traveltime"</span>, <span class="st">"studytime"</span>, <span class="st">"failures"</span>, <span class="st">"schoolsup"</span>, <span class="st">"famsup"</span>, <span class="st">"activities"</span>, <span class="st">"nursery"</span>, <span class="st">"higher"</span>, <span class="st">"internet"</span>, <span class="st">"romantic"</span>, <span class="st">"famrel"</span>, <span class="st">"freetime"</span>, <span class="st">"goout"</span>, <span class="st">"Dalc"</span>, <span class="st">"Walc"</span>, <span class="st">"health"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>This code performs an inner join between the math and por data frames using a comprehensive set of columns as keys. This will keep only the rows where all these columns match in both data frames. If there are columns in math and por with the same name that are not included in the by argument, the resulting combined data frame will have those columns with .x and .y suffixes to distinguish them (absences, paid, G1, G2 and G3).</p>
+<p>Next, for the math data, Portuguese, and combined data, choose four categorical variables you are interested in and convert those into factor variables in each tibble (use the same four variables in each). Use the mutate() function to accomplish this.</p>
+<p>I chose guardian, reason, Mjob and Fjob</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>math <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">guardian =</span> <span class="fu">as_factor</span>(guardian), <span class="at">reason =</span> <span class="fu">as_factor</span>(reason), <span class="at">Mjob =</span> <span class="fu">as_factor</span>(Mjob), <span class="at">Fjob =</span> <span class="fu">as_factor</span>(Fjob))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 395 × 33
+   school sex     age address famsize Pstatus  Medu  Fedu Mjob     Fjob   reason
+   &lt;chr&gt;  &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;fct&gt;    &lt;fct&gt;  &lt;fct&gt; 
+ 1 GP     F        18 U       GT3     A           4     4 at_home  teach… course
+ 2 GP     F        17 U       GT3     T           1     1 at_home  other  course
+ 3 GP     F        15 U       LE3     T           1     1 at_home  other  other 
+ 4 GP     F        15 U       GT3     T           4     2 health   servi… home  
+ 5 GP     F        16 U       GT3     T           3     3 other    other  home  
+ 6 GP     M        16 U       LE3     T           4     3 services other  reput…
+ 7 GP     M        16 U       LE3     T           2     2 other    other  home  
+ 8 GP     F        17 U       GT3     A           4     4 other    teach… home  
+ 9 GP     M        15 U       LE3     A           3     2 services other  home  
+10 GP     M        15 U       GT3     T           3     4 other    other  home  
+# ℹ 385 more rows
+# ℹ 22 more variables: guardian &lt;fct&gt;, traveltime &lt;dbl&gt;, studytime &lt;dbl&gt;,
+#   failures &lt;dbl&gt;, schoolsup &lt;chr&gt;, famsup &lt;chr&gt;, paid &lt;chr&gt;,
+#   activities &lt;chr&gt;, nursery &lt;chr&gt;, higher &lt;chr&gt;, internet &lt;chr&gt;,
+#   romantic &lt;chr&gt;, famrel &lt;dbl&gt;, freetime &lt;dbl&gt;, goout &lt;dbl&gt;, Dalc &lt;dbl&gt;,
+#   Walc &lt;dbl&gt;, health &lt;dbl&gt;, absences &lt;dbl&gt;, G1 &lt;dbl&gt;, G2 &lt;dbl&gt;, G3 &lt;dbl&gt;</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>por <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">guardian =</span> <span class="fu">as_factor</span>(guardian), <span class="at">reason =</span> <span class="fu">as_factor</span>(reason), <span class="at">Mjob =</span> <span class="fu">as_factor</span>(Mjob), <span class="at">Fjob =</span> <span class="fu">as_factor</span>(Fjob))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 649 × 33
+   school sex     age address famsize Pstatus  Medu  Fedu Mjob     Fjob   reason
+   &lt;chr&gt;  &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;fct&gt;    &lt;fct&gt;  &lt;fct&gt; 
+ 1 GP     F        18 U       GT3     A           4     4 at_home  teach… course
+ 2 GP     F        17 U       GT3     T           1     1 at_home  other  course
+ 3 GP     F        15 U       LE3     T           1     1 at_home  other  other 
+ 4 GP     F        15 U       GT3     T           4     2 health   servi… home  
+ 5 GP     F        16 U       GT3     T           3     3 other    other  home  
+ 6 GP     M        16 U       LE3     T           4     3 services other  reput…
+ 7 GP     M        16 U       LE3     T           2     2 other    other  home  
+ 8 GP     F        17 U       GT3     A           4     4 other    teach… home  
+ 9 GP     M        15 U       LE3     A           3     2 services other  home  
+10 GP     M        15 U       GT3     T           3     4 other    other  home  
+# ℹ 639 more rows
+# ℹ 22 more variables: guardian &lt;fct&gt;, traveltime &lt;dbl&gt;, studytime &lt;dbl&gt;,
+#   failures &lt;dbl&gt;, schoolsup &lt;chr&gt;, famsup &lt;chr&gt;, paid &lt;chr&gt;,
+#   activities &lt;chr&gt;, nursery &lt;chr&gt;, higher &lt;chr&gt;, internet &lt;chr&gt;,
+#   romantic &lt;chr&gt;, famrel &lt;dbl&gt;, freetime &lt;dbl&gt;, goout &lt;dbl&gt;, Dalc &lt;dbl&gt;,
+#   Walc &lt;dbl&gt;, health &lt;dbl&gt;, absences &lt;dbl&gt;, G1 &lt;dbl&gt;, G2 &lt;dbl&gt;, G3 &lt;dbl&gt;</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>combined <span class="ot">&lt;-</span> combined <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">guardian =</span> <span class="fu">as_factor</span>(guardian), <span class="at">reason =</span> <span class="fu">as_factor</span>(reason), <span class="at">Mjob =</span> <span class="fu">as_factor</span>(Mjob), <span class="at">Fjob =</span> <span class="fu">as_factor</span>(Fjob))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="task-2-summarize-the-data-very-basic-eda" class="level2">
+<h2 class="anchored" data-anchor-id="task-2-summarize-the-data-very-basic-eda">Task 2: Summarize the Data (Very Basic EDA)</h2>
+<p>We’ve talked about the general process of conducting an EDA. You try to understand how your data is stored, what is missing, and you try to summarize the variables both numerically and visually to understand relationships within the data. Do the rest of these items on the combined data:</p>
+<p>Look at how the data is stored and see if everything makes sense.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(combined)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>tibble [320 × 38] (S3: tbl_df/tbl/data.frame)
+ $ school    : chr [1:320] "GP" "GP" "GP" "GP" ...
+ $ sex       : chr [1:320] "F" "F" "F" "F" ...
+ $ age       : num [1:320] 18 17 15 16 16 16 17 15 15 15 ...
+ $ address   : chr [1:320] "U" "U" "U" "U" ...
+ $ famsize   : chr [1:320] "GT3" "GT3" "GT3" "GT3" ...
+ $ Pstatus   : chr [1:320] "A" "T" "T" "T" ...
+ $ Medu      : num [1:320] 4 1 4 3 4 2 4 3 3 4 ...
+ $ Fedu      : num [1:320] 4 1 2 3 3 2 4 2 4 4 ...
+ $ Mjob      : Factor w/ 5 levels "at_home","health",..: 1 1 2 3 4 3 3 4 3 5 ...
+ $ Fjob      : Factor w/ 5 levels "teacher","other",..: 1 2 3 2 2 2 1 2 2 4 ...
+ $ reason    : Factor w/ 4 levels "course","home",..: 1 1 2 2 3 2 2 2 2 3 ...
+ $ guardian  : Factor w/ 3 levels "mother","father",..: 1 2 1 2 1 1 1 1 1 1 ...
+ $ traveltime: num [1:320] 2 1 1 1 1 1 2 1 1 1 ...
+ $ studytime : num [1:320] 2 2 3 2 2 2 2 2 2 2 ...
+ $ failures  : num [1:320] 0 0 0 0 0 0 0 0 0 0 ...
+ $ schoolsup : chr [1:320] "yes" "no" "no" "no" ...
+ $ famsup    : chr [1:320] "no" "yes" "yes" "yes" ...
+ $ paid.x    : chr [1:320] "no" "no" "yes" "yes" ...
+ $ activities: chr [1:320] "no" "no" "yes" "no" ...
+ $ nursery   : chr [1:320] "yes" "no" "yes" "yes" ...
+ $ higher    : chr [1:320] "yes" "yes" "yes" "yes" ...
+ $ internet  : chr [1:320] "no" "yes" "yes" "no" ...
+ $ romantic  : chr [1:320] "no" "no" "yes" "no" ...
+ $ famrel    : num [1:320] 4 5 3 4 5 4 4 4 5 3 ...
+ $ freetime  : num [1:320] 3 3 2 3 4 4 1 2 5 3 ...
+ $ goout     : num [1:320] 4 3 2 2 2 4 4 2 1 3 ...
+ $ Dalc      : num [1:320] 1 1 1 1 1 1 1 1 1 1 ...
+ $ Walc      : num [1:320] 1 1 1 2 2 1 1 1 1 2 ...
+ $ health    : num [1:320] 3 3 5 5 5 3 1 1 5 2 ...
+ $ absences.x: num [1:320] 6 4 2 4 10 0 6 0 0 0 ...
+ $ G1.x      : num [1:320] 5 5 15 6 15 12 6 16 14 10 ...
+ $ G2.x      : num [1:320] 6 5 14 10 15 12 5 18 15 8 ...
+ $ G3.x      : num [1:320] 6 6 15 10 15 11 6 19 15 9 ...
+ $ paid.y    : chr [1:320] "no" "no" "no" "no" ...
+ $ absences.y: num [1:320] 4 2 0 0 6 0 2 0 0 2 ...
+ $ G1.y      : num [1:320] 0 9 14 11 12 13 10 15 12 14 ...
+ $ G2.y      : num [1:320] 11 11 14 13 12 12 13 16 12 14 ...
+ $ G3.y      : num [1:320] 11 11 14 13 13 13 13 17 13 14 ...</code></pre>
+</div>
+</div>
+<p>Looking at the output of the str() command. In addition to the changing of the four variables above into factors, the following changes would make sense. Many of them should be factors, and some should be converted to integer.</p>
+<ul>
+<li>$ age : int [1:320] 18 17 15 16 16 16 17 15 15 15 …</li>
+<li>$ Medu : fct [1:320] 4 1 4 3 4 2 4 3 3 4 …</li>
+<li>$ Fedu : fct [1:320] 4 1 2 3 3 2 4 2 4 4 …</li>
+<li>$ traveltime: fct [1:320] 2 1 1 1 1 1 2 1 1 1 …</li>
+<li>$ studytime : fct [1:320] 2 2 3 2 2 2 2 2 2 2 …</li>
+<li>$ failures : int [1:320] 0 0 0 0 0 0 0 0 0 0 …</li>
+<li>$ famrel : fct [1:320] 4 5 3 4 5 4 4 4 5 3 …</li>
+<li>$ freetime : fct [1:320] 3 3 2 3 4 4 1 2 5 3 …</li>
+<li>$ goout : fct [1:320] 4 3 2 2 2 4 4 2 1 3 …</li>
+<li>$ Dalc : fct [1:320] 1 1 1 1 1 1 1 1 1 1 …</li>
+<li>$ Walc : fct [1:320] 1 1 1 2 2 1 1 1 1 2 …</li>
+<li>$ health : fct [1:320] 3 3 5 5 5 3 1 1 5 2 …</li>
+<li>$ absences.x: int [1:320] 6 4 2 4 10 0 6 0 0 0 …</li>
+<li>$ absences.y: int [1:320] 4 2 0 0 6 0 2 0 0 2 …</li>
+<li>$ G1.x : int [1:320] 5 5 15 6 15 12 6 16 14 10 …</li>
+<li>$ G2.x : int [1:320] 6 5 14 10 15 12 5 18 15 8 …</li>
+<li>$ G3.x : int [1:320] 6 6 15 10 15 11 6 19 15 9 …</li>
+<li>$ G1.y : int [1:320] 0 9 14 11 12 13 10 15 12 14 …</li>
+<li>$ G2.y : int [1:320] 11 11 14 13 12 12 13 16 12 14 …</li>
+<li>$ G3.y : int [1:320] 11 11 14 13 13 13 13 17 13 14 …</li>
+</ul>
+<p>I also see that paid, absences, G1, G2 and G3 have .x and .y components from the inner join.</p>
+<p>Document the missing values in the data.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colSums</span>(<span class="fu">is.na</span>(combined))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    school        sex        age    address    famsize    Pstatus       Medu 
+         0          0          0          0          0          0          0 
+      Fedu       Mjob       Fjob     reason   guardian traveltime  studytime 
+         0          0          0          0          0          0          0 
+  failures  schoolsup     famsup     paid.x activities    nursery     higher 
+         0          0          0          0          0          0          0 
+  internet   romantic     famrel   freetime      goout       Dalc       Walc 
+         0          0          0          0          0          0          0 
+    health absences.x       G1.x       G2.x       G3.x     paid.y absences.y 
+         0          0          0          0          0          0          0 
+      G1.y       G2.y       G3.y 
+         0          0          0 </code></pre>
+</div>
+</div>
+<p>From this output, there does not seem to be any missing data.</p>
+<section id="categorical-variables" class="level3">
+<h3 class="anchored" data-anchor-id="categorical-variables">Categorical variables</h3>
+<p>Create a one-way contingency table, a two-way contingency table, and a three-way contingency table for some of the factor variables you created previously. Use table() to accomplish this. – Interpret a number from each resulting table (that is, pick out a value produced and explain what that value means.)</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co">#1-way Contingency Table</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"1-way Contingency Table"</span>, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>1-way Contingency Table </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(combined<span class="sc">$</span>guardian)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+mother father  other 
+   237     74      9 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co">#2-way Contingency Table</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"2-way Contingency Table"</span>, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>2-way Contingency Table </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(combined<span class="sc">$</span>guardian, combined<span class="sc">$</span>reason)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>        
+         course home reputation other
+  mother     90   60         64    23
+  father     27   22         19     6
+  other       1    5          2     1</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co">#3-way Contingency Table</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"3-way Contingency Table"</span>, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>3-way Contingency Table </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(combined<span class="sc">$</span>guardian, combined<span class="sc">$</span>reason, combined<span class="sc">$</span>Fjob)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>, ,  = teacher
+
+        
+         course home reputation other
+  mother      8    5          5     2
+  father      2    2          1     2
+  other       0    0          0     0
+
+, ,  = other
+
+        
+         course home reputation other
+  mother     55   38         36     9
+  father      8   12         10     1
+  other       1    5          2     0
+
+, ,  = services
+
+        
+         course home reputation other
+  mother     19   14         15    10
+  father     15    6          5     2
+  other       0    0          0     1
+
+, ,  = health
+
+        
+         course home reputation other
+  mother      2    1          6     1
+  father      1    0          3     1
+  other       0    0          0     0
+
+, ,  = at_home
+
+        
+         course home reputation other
+  mother      6    2          2     1
+  father      1    2          0     0
+  other       0    0          0     0</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Interpretation of 1-way Contingency Table - there are 237 mothers that are guardians in the sample.</p>
+<p>Interpretation of 2-way Contingency Table - 22 fathers chose the school because it was close to home.</p>
+<p>Interpretation of 3-way Contingency Table - 8 mothers who are teachers chose the school because it was close to home.</p>
+<p>Create a conditional two-way table using table(). That is, condition on one variable’s setting and create a two-way table. Do this using two different methods: – Once, by subsetting the data (say with filter()) and then creating the two-way table – Once, by creating a three-way table and subsetting it</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Conditional Two-way Contingency Tables </span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="co">#Using Filter</span></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"2-way Conditional Contingency Table"</span>, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>, <span class="st">"Filter for Mother"</span>, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>2-way Conditional Contingency Table 
+ Filter for Mother </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>filt <span class="ot">&lt;-</span> combined <span class="sc">|&gt;</span> <span class="fu">filter</span>(guardian <span class="sc">==</span> <span class="st">"mother"</span>) </span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(filt<span class="sc">$</span>Fjob, filt<span class="sc">$</span>reason) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          
+           course home reputation other
+  teacher       8    5          5     2
+  other        55   38         36     9
+  services     19   14         15    10
+  health        2    1          6     1
+  at_home       6    2          2     1</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Subsetting a 3-way Contingency Table</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"2-way Conditional Contingency Table"</span>, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>, <span class="st">"Subset 3-Way Table"</span>, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>2-way Conditional Contingency Table 
+ Subset 3-Way Table </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>ss <span class="ot">&lt;-</span> <span class="fu">table</span>(combined<span class="sc">$</span>guardian, combined<span class="sc">$</span>Fjob, combined<span class="sc">$</span>reason)</span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>ss[<span class="st">"mother"</span>, ,]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          
+           course home reputation other
+  teacher       8    5          5     2
+  other        55   38         36     9
+  services     19   14         15    10
+  health        2    1          6     1
+  at_home       6    2          2     1</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Create a two-way contingency table using group_by() and summarize() from dplyr. Then use pivot_wider() to make the result look more like the output from table().</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>combined <span class="sc">|&gt;</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(guardian, reason) <span class="sc">|&gt;</span></span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">count =</span> <span class="fu">n</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`summarise()` has grouped output by 'guardian'. You can override using the
+`.groups` argument.</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 12 × 3
+# Groups:   guardian [3]
+   guardian reason     count
+   &lt;fct&gt;    &lt;fct&gt;      &lt;int&gt;
+ 1 mother   course        90
+ 2 mother   home          60
+ 3 mother   reputation    64
+ 4 mother   other         23
+ 5 father   course        27
+ 6 father   home          22
+ 7 father   reputation    19
+ 8 father   other          6
+ 9 other    course         1
+10 other    home           5
+11 other    reputation     2
+12 other    other          1</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>combined <span class="sc">|&gt;</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(guardian, reason) <span class="sc">|&gt;</span></span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">count =</span> <span class="fu">n</span>()) <span class="sc">|&gt;</span></span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> reason, <span class="at">values_from =</span> count)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`summarise()` has grouped output by 'guardian'. You can override using the
+`.groups` argument.</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 5
+# Groups:   guardian [3]
+  guardian course  home reputation other
+  &lt;fct&gt;     &lt;int&gt; &lt;int&gt;      &lt;int&gt; &lt;int&gt;
+1 mother       90    60         64    23
+2 father       27    22         19     6
+3 other         1     5          2     1</code></pre>
+</div>
+</div>
+<p>Create a stacked bar graph and a side-by-side bar graph. Give relevant x and y labels, and a title for the plots.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Stacked Bar Graph</span></span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> combined , <span class="fu">aes</span>(<span class="at">x =</span> guardian, <span class="at">fill =</span> reason))</span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>g <span class="sc">+</span> <span class="fu">geom_bar</span>() <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"School Choice Reason by Guardian"</span>, <span class="at">x =</span> <span class="st">"Guardian Category"</span>, <span class="at">y =</span> <span class="st">"Reason for School Selection"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="EDA-Practice_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Horizontal Bar Graph</span></span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> combined , <span class="fu">aes</span>(<span class="at">x =</span> guardian, <span class="at">fill =</span> reason))</span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>g <span class="sc">+</span> <span class="fu">geom_bar</span>() <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"School Choice Reason by Guardian"</span>, <span class="at">x =</span> <span class="st">"Guardian Category"</span>, <span class="at">y =</span> <span class="st">"Reason for School Selection"</span>) <span class="sc">+</span></span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a><span class="fu">coord_flip</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="EDA-Practice_files/figure-html/unnamed-chunk-11-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="numeric-variables-and-across-groups" class="level3">
+<h3 class="anchored" data-anchor-id="numeric-variables-and-across-groups">Numeric variables (and across groups)</h3>
+<p>The numeric variables are age, absences, and the three test grades variables (G1, G2, and G3) from each data set (math and Portuguese).</p>
+<p>• Find measures of center and spread for three of these variables (including at least one G3 variable)<br>
+– Repeat while subsetting the data in a meaningful way.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>combined <span class="sc">|&gt;</span></span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean_age =</span> <span class="fu">mean</span>(age), <span class="at">sd_age =</span> <span class="fu">sd</span>(age))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 2
+  mean_age sd_age
+     &lt;dbl&gt;  &lt;dbl&gt;
+1     16.5   1.14</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>combined <span class="sc">|&gt;</span></span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean_abs.x =</span> <span class="fu">mean</span>(absences.x), <span class="at">sd_abs =</span> <span class="fu">sd</span>(absences.x))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 2
+  mean_abs.x sd_abs
+       &lt;dbl&gt;  &lt;dbl&gt;
+1       5.41   7.84</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>combined <span class="sc">|&gt;</span></span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean_G3.x =</span> <span class="fu">mean</span>(G3.x), <span class="at">sd_G3 =</span> <span class="fu">sd</span>(G3.x))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 2
+  mean_G3.x sd_G3
+      &lt;dbl&gt; &lt;dbl&gt;
+1      11.0  4.30</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Subsetted in a meaningful way (address = Urban)</span></span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>combined <span class="sc">|&gt;</span> <span class="fu">filter</span>(address <span class="sc">==</span> <span class="st">"U"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean_age =</span> <span class="fu">mean</span>(age), <span class="at">sd_age =</span> <span class="fu">sd</span>(age))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 2
+  mean_age sd_age
+     &lt;dbl&gt;  &lt;dbl&gt;
+1     16.4   1.12</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>combined <span class="sc">|&gt;</span> <span class="fu">filter</span>(address <span class="sc">==</span> <span class="st">"U"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean_absx.x =</span> <span class="fu">mean</span>(absences.x), <span class="at">sd_abs =</span> <span class="fu">sd</span>(absences.x))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 2
+  mean_absx.x sd_abs
+        &lt;dbl&gt;  &lt;dbl&gt;
+1        5.23   7.24</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>combined <span class="sc">|&gt;</span> <span class="fu">filter</span>(address <span class="sc">==</span> <span class="st">"U"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean_G3.x =</span> <span class="fu">mean</span>(G3.x), <span class="at">sd_G3 =</span> <span class="fu">sd</span>(G3.x))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 2
+  mean_G3.x sd_G3
+      &lt;dbl&gt; &lt;dbl&gt;
+1      11.3  4.18</code></pre>
+</div>
+</div>
+<p>Find measures of center and spread across a single grouping variable for three of these variables (including a G3 variable as one of them)</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a>combined <span class="sc">|&gt;</span></span>
+<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(address) <span class="sc">|&gt;</span></span>
+<span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean_age =</span> <span class="fu">mean</span>(age), <span class="at">sd_age =</span> <span class="fu">sd</span>(age), <span class="at">mean_absx.x =</span> <span class="fu">mean</span>(absences.x), <span class="at">sd_abs =</span> <span class="fu">sd</span>(absences.x), <span class="at">mean_G3.x =</span> <span class="fu">mean</span>(G3.x), <span class="at">sd_G3 =</span> <span class="fu">sd</span>(G3.x))  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 7
+  address mean_age sd_age mean_absx.x sd_abs mean_G3.x sd_G3
+  &lt;chr&gt;      &lt;dbl&gt;  &lt;dbl&gt;       &lt;dbl&gt;  &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt;
+1 R           17.0   1.12        6.12   9.80      9.90  4.59
+2 U           16.4   1.12        5.23   7.24     11.3   4.18</code></pre>
+</div>
+</div>
+<p>Find measures of center and spread across two grouping variables for three of these variables (including a G3 variable as one of them)</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a>combined <span class="sc">|&gt;</span></span>
+<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(address, Fjob) <span class="sc">|&gt;</span></span>
+<span id="cb68-3"><a href="#cb68-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean_age =</span> <span class="fu">mean</span>(age), <span class="at">sd_age =</span> <span class="fu">sd</span>(age), <span class="at">mean_absx.x =</span> <span class="fu">mean</span>(absences.x), <span class="at">sd_abs =</span> <span class="fu">sd</span>(absences.x), <span class="at">mean_G3.x =</span> <span class="fu">mean</span>(G3.x), <span class="at">sd_G3 =</span> <span class="fu">sd</span>(G3.x))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`summarise()` has grouped output by 'address'. You can override using the
+`.groups` argument.</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 8
+# Groups:   address [2]
+   address Fjob     mean_age sd_age mean_absx.x sd_abs mean_G3.x sd_G3
+   &lt;chr&gt;   &lt;fct&gt;       &lt;dbl&gt;  &lt;dbl&gt;       &lt;dbl&gt;  &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt;
+ 1 R       teacher      16.2  1.10         6.2    3.77     11     6.82
+ 2 R       other        17.2  0.986        5.85   5.55      9.95  4.71
+ 3 R       services     16.8  1.15         7.67  17.1       9.17  3.99
+ 4 R       health       15    0            2      0         9.5   2.12
+ 5 R       at_home      16.7  1.53         3      3.61     12     5.29
+ 6 U       teacher      16.5  1.01         5.09   6.06     13.0   4.70
+ 7 U       other        16.4  1.05         5.51   7.07     10.9   4.08
+ 8 U       services     16.5  1.30         4.91   8.46     11.7   4.14
+ 9 U       health       15.9  0.954        4.85   5.94     12.2   3.44
+10 U       at_home      16.6  1.21         4.27   5.02     10.9   4.89</code></pre>
+</div>
+</div>
+<p>Create a correlation matrix between all of the numeric variables</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a>corr <span class="ot">&lt;-</span> combined <span class="sc">|&gt;</span> <span class="fu">select</span>(<span class="fu">where</span>(is.numeric)) <span class="sc">|&gt;</span> <span class="fu">cor</span>()</span>
+<span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a>corr</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                    age         Medu         Fedu   traveltime    studytime
+age         1.000000000 -0.100949786 -0.107245313  0.160281754  0.043881028
+Medu       -0.100949786  1.000000000  0.621523869 -0.218794954  0.045425978
+Fedu       -0.107245313  0.621523869  1.000000000 -0.193978042 -0.039289626
+traveltime  0.160281754 -0.218794954 -0.193978042  1.000000000 -0.103243249
+studytime   0.043881028  0.045425978 -0.039289626 -0.103243249  1.000000000
+failures    0.243429617 -0.125608045 -0.157496645  0.104521138 -0.179515785
+famrel      0.049940980 -0.067657746 -0.047260992 -0.027275744  0.001381660
+freetime   -0.045824466  0.004013326 -0.001258667 -0.055899592 -0.091829632
+goout       0.150794790  0.065832096  0.050593936  0.006559725 -0.009403345
+Dalc        0.113952023  0.062866542  0.039126588  0.161272613 -0.172278644
+Walc        0.156817685 -0.004099434  0.023315814  0.105381347 -0.232402574
+health     -0.113225976 -0.011497172  0.067152933  0.020869407 -0.040979063
+absences.x  0.143925170  0.099832689  0.024617771 -0.001464243 -0.082387919
+G1.x       -0.110379348  0.193071603  0.175557917 -0.088080745  0.125691378
+G2.x       -0.186187399  0.188735230  0.150418214 -0.184594967  0.089030600
+G3.x       -0.206031862  0.187754424  0.141990610 -0.165110961  0.045402243
+absences.y  0.047331821  0.063530536  0.086614161  0.054308059 -0.134969383
+G1.y       -0.050549678  0.181423706  0.115531025 -0.178191662  0.229739293
+G2.y        0.029366456  0.189642017  0.136994424 -0.179611557  0.231059730
+G3.y       -0.009103257  0.158979933  0.107807478 -0.153616466  0.238553746
+              failures      famrel     freetime        goout        Dalc
+age         0.24342962  0.04994098 -0.045824466  0.150794790  0.11395202
+Medu       -0.12560804 -0.06765775  0.004013326  0.065832096  0.06286654
+Fedu       -0.15749664 -0.04726099 -0.001258667  0.050593936  0.03912659
+traveltime  0.10452114 -0.02727574 -0.055899592  0.006559725  0.16127261
+studytime  -0.17951579  0.00138166 -0.091829632 -0.009403345 -0.17227864
+failures    1.00000000  0.09437401  0.089757964  0.097119445  0.16213974
+famrel      0.09437401  1.00000000  0.090946059  0.033058834 -0.05737989
+freetime    0.08975796  0.09094606  1.000000000  0.243271162  0.20497133
+goout       0.09711944  0.03305883  0.243271162  1.000000000  0.25703214
+Dalc        0.16213974 -0.05737989  0.204971335  0.257032140  1.00000000
+Walc        0.16736348 -0.12634267  0.119021094  0.378591514  0.64989386
+health      0.04225577  0.13959656  0.070864701 -0.049000564  0.05996329
+absences.x  0.12006863 -0.04806901 -0.046300383  0.078848996  0.15159884
+G1.x       -0.19581035 -0.05618075 -0.017100766 -0.115882796 -0.09641793
+G2.x       -0.16669179 -0.08710139 -0.029677027 -0.158978350 -0.05916707
+G3.x       -0.14303203 -0.01797570 -0.006516202 -0.118423233 -0.04696434
+absences.y  0.13424264 -0.02955203 -0.011429255  0.128521823  0.10753855
+G1.y       -0.26927657 -0.06419546 -0.085629896 -0.071905764 -0.23398211
+G2.y       -0.26992597 -0.02441686 -0.087231866 -0.091151551 -0.25300707
+G3.y       -0.32775690 -0.01282948 -0.110638817 -0.073423265 -0.27992305
+                   Walc       health   absences.x        G1.x        G2.x
+age         0.156817685 -0.113225976  0.143925170 -0.11037935 -0.18618740
+Medu       -0.004099434 -0.011497172  0.099832689  0.19307160  0.18873523
+Fedu        0.023315814  0.067152933  0.024617771  0.17555792  0.15041821
+traveltime  0.105381347  0.020869407 -0.001464243 -0.08808075 -0.18459497
+studytime  -0.232402574 -0.040979063 -0.082387919  0.12569138  0.08903060
+failures    0.167363479  0.042255769  0.120068630 -0.19581035 -0.16669179
+famrel     -0.126342672  0.139596565 -0.048069014 -0.05618075 -0.08710139
+freetime    0.119021094  0.070864701 -0.046300383 -0.01710077 -0.02967703
+goout       0.378591514 -0.049000564  0.078848996 -0.11588280 -0.15897835
+Dalc        0.649893859  0.059963287  0.151598836 -0.09641793 -0.05916707
+Walc        1.000000000  0.070450703  0.208026186 -0.07964360 -0.06540510
+health      0.070450703  1.000000000  0.012122515 -0.06155381 -0.07666718
+absences.x  0.208026186  0.012122515  1.000000000 -0.06946116 -0.07580245
+G1.x       -0.079643599 -0.061553810 -0.069461164  1.00000000  0.86588796
+G2.x       -0.065405098 -0.076667185 -0.075802450  0.86588796  1.00000000
+G3.x       -0.027623053 -0.047513775 -0.028118470  0.81859418  0.91357599
+absences.y  0.150366322 -0.001077612  0.563815592 -0.08760610 -0.12636236
+G1.y       -0.158160549 -0.126244006 -0.092477610  0.59293522  0.54300736
+G2.y       -0.183295800 -0.170419288 -0.145164017  0.59517224  0.56521350
+G3.y       -0.182606733 -0.162249671 -0.135726385  0.54388734  0.49603265
+                   G3.x   absences.y        G1.y        G2.y         G3.y
+age        -0.206031862  0.047331821 -0.05054968  0.02936646 -0.009103257
+Medu        0.187754424  0.063530536  0.18142371  0.18964202  0.158979933
+Fedu        0.141990610  0.086614161  0.11553102  0.13699442  0.107807478
+traveltime -0.165110961  0.054308059 -0.17819166 -0.17961156 -0.153616466
+studytime   0.045402243 -0.134969383  0.22973929  0.23105973  0.238553746
+failures   -0.143032028  0.134242644 -0.26927657 -0.26992597 -0.327756897
+famrel     -0.017975700 -0.029552034 -0.06419546 -0.02441686 -0.012829483
+freetime   -0.006516202 -0.011429255 -0.08562990 -0.08723187 -0.110638817
+goout      -0.118423233  0.128521823 -0.07190576 -0.09115155 -0.073423265
+Dalc       -0.046964337  0.107538550 -0.23398211 -0.25300707 -0.279923052
+Walc       -0.027623053  0.150366322 -0.15816055 -0.18329580 -0.182606733
+health     -0.047513775 -0.001077612 -0.12624401 -0.17041929 -0.162249671
+absences.x -0.028118470  0.563815592 -0.09247761 -0.14516402 -0.135726385
+G1.x        0.818594184 -0.087606100  0.59293522  0.59517224  0.543887345
+G2.x        0.913575991 -0.126362360  0.54300736  0.56521350  0.496032649
+G3.x        1.000000000 -0.116640460  0.52288461  0.54545279  0.475956497
+absences.y -0.116640460  1.000000000 -0.09864117 -0.12070727 -0.071452010
+G1.y        0.522884610 -0.098641173  1.00000000  0.88415041  0.825414320
+G2.y        0.545452789 -0.120707273  0.88415041  1.00000000  0.894309821
+G3.y        0.475956497 -0.071452010  0.82541432  0.89430982  1.000000000</code></pre>
+</div>
+</div>
+<p>Create a histogram, kernel density plot, and boxplot for two of the numeric variables across one of the categorical variables (that is, create graphs that can compare the distributions across the groups on the same plot (no faceting here)). Add appropriate labels and titles.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(combined, <span class="fu">aes</span>(<span class="at">x =</span> absences.x , <span class="at">fill =</span> address)) <span class="sc">+</span></span>
+<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">color=</span><span class="st">'black'</span>) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Distribution of Absences in Math Class by Address"</span>, <span class="at">x =</span> <span class="st">"Math Class Absences"</span>, <span class="at">y =</span> <span class="st">"Number of Absences"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`stat_bin()` using `bins = 30`. Pick better value `binwidth`.</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="EDA-Practice_files/figure-html/Histograms for two (2) numeric variables across one (1) categorical variable-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>In this plot we can see that math class absences appears to have an Exponential Distribution and that the majority of students come from an Urban address.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(combined, <span class="fu">aes</span>(<span class="at">x =</span> G3.x , <span class="at">fill =</span> address)) <span class="sc">+</span></span>
+<span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">color=</span><span class="st">'black'</span>) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Distribution of Final Math Grade by Address"</span>, <span class="at">x =</span> <span class="st">"Final Math Grade"</span>, <span class="at">y =</span> <span class="st">"Number of Students"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`stat_bin()` using `bins = 30`. Pick better value `binwidth`.</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="EDA-Practice_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>In this plot we can see that the distribution of final grade in math is approximately normal. The zeros at the left end does seem high and probably should be investigated to see if this is a data error.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb77"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(combined, <span class="fu">aes</span>(<span class="at">x =</span> absences.x , <span class="at">fill =</span> address)) <span class="sc">+</span></span>
+<span id="cb77-2"><a href="#cb77-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">kernel =</span> <span class="st">"gaussian"</span>) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Kernel Density of Absences in Math Class by Address"</span>, <span class="at">x =</span> <span class="st">"Math Class Absences"</span>, <span class="at">y =</span> <span class="st">"Density"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="EDA-Practice_files/figure-html/Kernel Density Plot for two (2) numeric variables across one (1) categorical variable-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Here, the distribution of math class absences for rural students is similar to the distribution for urban students. The density at the end with rural absences greater than 70 compared to the high of 55 for urban might be interesting to investigate.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(combined, <span class="fu">aes</span>(<span class="at">x =</span> G3.x , <span class="at">fill =</span> address)) <span class="sc">+</span></span>
+<span id="cb78-2"><a href="#cb78-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">kernel =</span> <span class="st">"gaussian"</span>) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Kernel Density of Final Math Grade by Address"</span>, <span class="at">x =</span> <span class="st">"Final Math Grade"</span>, <span class="at">y =</span> <span class="st">"Density"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="EDA-Practice_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>In this plot, it appears that the distribution of final grade in math vs.&nbsp;address differs between rural and urban addresses.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(combined, <span class="fu">aes</span>(<span class="at">x =</span> address, <span class="at">y =</span> absences.x , <span class="at">fill =</span> address)) <span class="sc">+</span></span>
+<span id="cb79-2"><a href="#cb79-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Boxplot of Absences in Math Class by Address"</span>, <span class="at">x =</span> <span class="st">"Address"</span>, <span class="at">y =</span> <span class="st">"Math Class Absences"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="EDA-Practice_files/figure-html/Boxplots for two (2) numeric variables across one (1) categorical variable-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The plot suggests that the median of math class absences is similar across rural and urban addresses. The range of the rural absences tops out at 75 compared to 55 for the urban addresses. The orange box with the median toward the bottom left suggests right skew for rural addresses. The blue box with the median toward the top suggest left skew for urban addresses.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb80"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(combined, <span class="fu">aes</span>(<span class="at">x =</span> address, <span class="at">y =</span> G3.x , <span class="at">fill =</span> address)) <span class="sc">+</span></span>
+<span id="cb80-2"><a href="#cb80-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Boxplot of Math Final Grade by Address"</span>, <span class="at">x =</span> <span class="st">"Address"</span>, <span class="at">y =</span> <span class="st">"Final Math Grade"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="EDA-Practice_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>This plot suggests that final math scores for Urban and Rural addresses are similar. Here, the distribution of Rural scores appears symmetric. The distribution of urban scores is slightly left skewed. Note that the range of Urban students is wider. This seems counterintuitive. Smaller sample sizes usually leads to wider variation.</p>
+<p>Create two scatterplots relating a G3 variable to other numeric variables (put G3 on the y-axis). You should jitter the points if they sit on top of each other. Color the points by a categorical variable in each. Add appropriate labels and titles.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb81"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check for overlapping points</span></span>
+<span id="cb81-2"><a href="#cb81-2" aria-hidden="true" tabindex="-1"></a><span class="co"># sum(duplicated(combined[, c("age", "G3.x")]))</span></span>
+<span id="cb81-3"><a href="#cb81-3" aria-hidden="true" tabindex="-1"></a><span class="co"># sum(duplicated(combined[, c("absences.x", "G3.x")]))</span></span>
+<span id="cb81-4"><a href="#cb81-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb81-5"><a href="#cb81-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(combined, <span class="fu">aes</span>(<span class="at">x =</span> age, <span class="at">y =</span> G3.y, <span class="at">color =</span> address)) <span class="sc">+</span> </span>
+<span id="cb81-6"><a href="#cb81-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">geom_jitter</span>(<span class="at">width =</span> <span class="fl">0.5</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span> </span>
+<span id="cb81-7"><a href="#cb81-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Scatterplot of Final Language Grade by Age and Address"</span>, <span class="at">x =</span> <span class="st">"Student Age"</span>, <span class="at">y =</span> <span class="st">"Final Language Grade"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="EDA-Practice_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>This plot suggest that final language scores are similar across age, except for the 22 year old points, which may truly be outliers. Address does not seem to have an effect on final language scores.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb82"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(combined, <span class="fu">aes</span>(<span class="at">x =</span> absences.y, <span class="at">y =</span> G3.y, <span class="at">color =</span> address)) <span class="sc">+</span></span>
+<span id="cb82-2"><a href="#cb82-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">geom_jitter</span>(<span class="at">width =</span> <span class="fl">0.5</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span> </span>
+<span id="cb82-3"><a href="#cb82-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Scatterplot of Final Language Grade by Absences and Address"</span>, <span class="at">x =</span> <span class="st">"Language Class Absences"</span>, <span class="at">y =</span> <span class="st">"Final Language Grade"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="EDA-Practice_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>This plot suggest that final language scores slightly drop with absences. But there are a few students that had over 30 absences and still are close to the middle of the cloud of points. I find that interesting.</p>
+<p>Repeat the scatter plot step but use faceting to obtain graphs at each setting of another categorical variable.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb83"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a>new_famrel_labels <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"1"</span> <span class="ot">=</span> <span class="st">"very bad"</span>, <span class="st">"2"</span> <span class="ot">=</span> <span class="st">"bad"</span>, <span class="st">"3"</span> <span class="ot">=</span> <span class="st">"OK"</span>, <span class="st">"4"</span> <span class="ot">=</span> <span class="st">"good"</span>, <span class="st">"5"</span> <span class="ot">=</span> <span class="st">"excellent"</span> )</span>
+<span id="cb83-2"><a href="#cb83-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb83-3"><a href="#cb83-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(combined, <span class="fu">aes</span>(<span class="at">x =</span> age, <span class="at">y =</span> G3.y, <span class="at">color =</span> address)) <span class="sc">+</span> </span>
+<span id="cb83-4"><a href="#cb83-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">geom_jitter</span>(<span class="at">width =</span> <span class="fl">0.5</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span> </span>
+<span id="cb83-5"><a href="#cb83-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Scatterplot of Final Language Grade by Age, Family Relationship and Address"</span>, <span class="at">x =</span> <span class="st">"Student Age"</span>, <span class="at">y =</span> <span class="st">"Final Language Grade"</span>) <span class="sc">+</span> </span>
+<span id="cb83-6"><a href="#cb83-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> famrel, <span class="at">labeller =</span> <span class="fu">labeller</span>(<span class="at">famrel =</span> new_famrel_labels))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="EDA-Practice_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>This plot suggests that family relationship, age, and address do not seem to have an effect on final language grade. There are some points out of the cloud but the bulk of the mass of points supports my conclusion.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb84"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a>new_famrel_labels <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"1"</span> <span class="ot">=</span> <span class="st">"very bad"</span>, <span class="st">"2"</span> <span class="ot">=</span> <span class="st">"bad"</span>, <span class="st">"3"</span> <span class="ot">=</span> <span class="st">"OK"</span>, <span class="st">"4"</span> <span class="ot">=</span> <span class="st">"good"</span>, <span class="st">"5"</span> <span class="ot">=</span> <span class="st">"excellent"</span> )</span>
+<span id="cb84-2"><a href="#cb84-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-3"><a href="#cb84-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(combined, <span class="fu">aes</span>(<span class="at">x =</span> absences.y, <span class="at">y =</span> G3.y, <span class="at">color =</span> address)) <span class="sc">+</span> </span>
+<span id="cb84-4"><a href="#cb84-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">geom_jitter</span>(<span class="at">width =</span> <span class="fl">0.5</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span> </span>
+<span id="cb84-5"><a href="#cb84-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="fu">str_wrap</span>(<span class="st">"Scatterplot of Final Language Grade by Absences, Family Relationship and Address"</span>, <span class="at">width =</span> <span class="dv">50</span>), <span class="at">x =</span> <span class="st">"Student Age"</span>, <span class="at">y =</span> <span class="st">"Final Language Grade"</span>) <span class="sc">+</span> </span>
+<span id="cb84-6"><a href="#cb84-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> famrel, <span class="at">labeller =</span> <span class="fu">labeller</span>(<span class="at">famrel =</span> new_famrel_labels))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="EDA-Practice_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>This plot suggests that family relationship, absences, and address do not seem to have an effect on final language grade. There are some points out of the cloud but the bulk of the mass of points supports my conclusion.</p>
+<p>Repeat the scatter plot step but use faceting to obtain graphs at each combination of two categorical variables.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb85"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a>new_famrel_labels <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"1"</span> <span class="ot">=</span> <span class="st">"very bad"</span>, <span class="st">"2"</span> <span class="ot">=</span> <span class="st">"bad"</span>, <span class="st">"3"</span> <span class="ot">=</span> <span class="st">"OK"</span>, <span class="st">"4"</span> <span class="ot">=</span> <span class="st">"good"</span>, <span class="st">"5"</span> <span class="ot">=</span> <span class="st">"excellent"</span> )</span>
+<span id="cb85-2"><a href="#cb85-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-3"><a href="#cb85-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(combined, <span class="fu">aes</span>(<span class="at">x =</span> age, <span class="at">y =</span> G3.y, <span class="at">color =</span> address)) <span class="sc">+</span> </span>
+<span id="cb85-4"><a href="#cb85-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">geom_jitter</span>(<span class="at">width =</span> <span class="fl">0.5</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span> </span>
+<span id="cb85-5"><a href="#cb85-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="fu">str_wrap</span>(<span class="st">"Scatterplot of Final Language Grade by Age, Family Relationship, Guardian and Address"</span>, <span class="at">width =</span> <span class="dv">50</span>), <span class="at">x =</span> <span class="st">"Student Age"</span>, <span class="at">y =</span> <span class="st">"Final Language Grade"</span>) <span class="sc">+</span> </span>
+<span id="cb85-6"><a href="#cb85-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(guardian <span class="sc">~</span> famrel, <span class="at">labeller =</span> <span class="fu">labeller</span>(<span class="at">famrel =</span> new_famrel_labels))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="EDA-Practice_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>In this plot, it appears that the selected factors do not have an effect on final language grade. The other guardian students appear to have somewhat lower scores, but the sample size is small so it is difficult to draw any confident conclusions from this.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb86"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb86-1"><a href="#cb86-1" aria-hidden="true" tabindex="-1"></a>new_famrel_labels <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"1"</span> <span class="ot">=</span> <span class="st">"very bad"</span>, <span class="st">"2"</span> <span class="ot">=</span> <span class="st">"bad"</span>, <span class="st">"3"</span> <span class="ot">=</span> <span class="st">"OK"</span>, <span class="st">"4"</span> <span class="ot">=</span> <span class="st">"good"</span>, <span class="st">"5"</span> <span class="ot">=</span> <span class="st">"excellent"</span> )</span>
+<span id="cb86-2"><a href="#cb86-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb86-3"><a href="#cb86-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(combined, <span class="fu">aes</span>(<span class="at">x =</span> absences.y, <span class="at">y =</span> G3.y, <span class="at">color =</span> address)) <span class="sc">+</span> </span>
+<span id="cb86-4"><a href="#cb86-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">geom_jitter</span>(<span class="at">width =</span> <span class="fl">0.5</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span> </span>
+<span id="cb86-5"><a href="#cb86-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="fu">str_wrap</span>(<span class="st">"Scatterplot of Final Language Grade by Absence, Family Relationship, Guardian and Address"</span>, <span class="at">width =</span> <span class="dv">50</span>), <span class="at">x =</span> <span class="st">"Language Class Absences"</span>, <span class="at">y =</span> <span class="st">"Final Language Grade"</span> ) <span class="sc">+</span> </span>
+<span id="cb86-6"><a href="#cb86-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(guardian <span class="sc">~</span> famrel, <span class="at">labeller =</span> <span class="fu">labeller</span>(<span class="at">famrel =</span> new_famrel_labels))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="EDA-Practice_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>This plot suggests that language class absences may have a slight effect on final language grade (more absences translates to lower grades). In the boxes that have at least 5 points, the points seem to fall off a bit to the left.</p>
+
+
+</section>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
