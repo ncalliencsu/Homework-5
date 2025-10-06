@@ -149,7 +149,6 @@ ss <- table(combined$guardian, combined$Fjob, combined$reason)
 ss["mother", ,]
 cat("\n")
 
-
 ```
 Create a two-way contingency table using group_by() and summarize() from dplyr. Then use
 pivot_wider() to make the result look more like the output from table().  
@@ -171,11 +170,11 @@ Create a stacked bar graph and a side-by-side bar graph. Give relevant x and y l
 #Stacked Bar Graph
 
 g <- ggplot(data = combined , aes(x = guardian, fill = reason))
-g + geom_bar() + labs(title = "School Choice Reason by Guardian", x = "Guardian Category", y = "Reason for School Selection")
+g + geom_bar() + labs(title = "Count of School Choice Reason by Guardian", x = "Guardian Category", y = "Count by Guardian")
 
 #Horizontal Bar Graph
 g <- ggplot(data = combined , aes(x = guardian, fill = reason))
-g + geom_bar() + labs(title = "School Choice Reason by Guardian", x = "Guardian Category", y = "Reason for School Selection") +
+g + geom_bar() + labs(title = "Count of School Choice Reason by Guardian", x = "Guardian Category", y = "Count by Guardian") +
 coord_flip()
 
 ```
